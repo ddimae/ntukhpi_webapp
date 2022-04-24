@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- JDBC Database connection settings -->
+		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/ntukhpi?serverTimezone=Europe/Kiev&amp;useSSL=false</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
+		<!-- Select our SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQL57Dialect</property>
+		
+		<!-- Echo the SQL to stdout -->
+		<property name="show_sql">true</property>
+		
+		<!-- Теги маппинга классов -->
+		<!-- <mapping resource="model/Car.hbm.xml" />-->
+		<mapping class="model.Institute" />
+		<mapping class="model.Department" />
+		<mapping class="model.DepsInInst" />
+	</session-factory>
+</hibernate-configuration>

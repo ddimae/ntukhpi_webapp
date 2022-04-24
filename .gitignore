@@ -1,0 +1,5 @@
+# ignore files-copies
+*.~*
+
+# ignore files in folder target
+target/
