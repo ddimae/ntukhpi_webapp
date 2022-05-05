@@ -1,10 +1,6 @@
 package consoletest;
 
-import java.sql.Connection;
 import java.time.LocalDate;
-import java.util.List;
-
-import org.hibernate.Session;
 
 import hbn.HibernateUtil5;
 import hbndao.HBNDADepartment;

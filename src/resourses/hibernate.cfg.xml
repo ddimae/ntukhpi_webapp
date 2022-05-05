@@ -4,7 +4,7 @@
 	<session-factory>
 		<!-- JDBC Database connection settings -->
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/ntukhpi?serverTimezone=Europe/Kiev&amp;useSSL=false</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/ntukhpi2?serverTimezone=Europe/Kiev&amp;useSSL=false</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">root</property>
 		<!-- Select our SQL dialect -->
@@ -17,6 +17,5 @@
 		<!-- <mapping resource="model/Car.hbm.xml" />-->
 		<mapping class="model.Institute" />
 		<mapping class="model.Department" />
-		<mapping class="model.DepsInInst" />
 	</session-factory>
 </hibernate-configuration>

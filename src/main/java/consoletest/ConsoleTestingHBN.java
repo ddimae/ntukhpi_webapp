@@ -1,10 +1,6 @@
 package consoletest;
 
-import java.sql.Connection;
 import java.time.LocalDate;
-import java.util.List;
-
-import org.hibernate.Session;
 
 import hbn.HibernateUtil5;
 import hbndao.HBNDAInstitute;
@@ -13,7 +9,7 @@ import model.Institute;
 public class ConsoleTestingHBN {
 
 	public static void main(String[] args) {
-
+		
 		// Подготовка коллекции для ображения
 		java.util.List<Institute> listInstitute = null;
 		boolean resOp;
@@ -89,7 +85,7 @@ public class ConsoleTestingHBN {
 		// Institute instituteFindID = new Institute(0, 111, "Test", shortNameInstitute,
 		// LocalDate.of(2000, 1, 1));
 		// instituteFindID.setShortNameInstitute("SGI");
-		long id = HBNDAInstitute.findBySName(shortNameInstitute);
+		long id = HBNDAInstitute.findIdInstBySName(shortNameInstitute);
 		long idNewInst = -1; // для будущих проверок
 		if (id != -1) {
 			System.out.println("Found! " + id);
@@ -107,7 +103,7 @@ public class ConsoleTestingHBN {
 		System.out.println("ShortName Institute to find = " + shortNameInstitute);
 		// instituteFindID = new Institute(0, 111, "Test", shortNameInstitute,
 		// LocalDate.of(2000, 1, 1));
-		id = HBNDAInstitute.findBySName(shortNameInstitute);
+		id = HBNDAInstitute.findIdInstBySName(shortNameInstitute);
 		if (id != -1L) {
 			System.err.println("Problem ===> Found! " + id);
 			System.exit(400);
@@ -284,5 +280,6 @@ public class ConsoleTestingHBN {
 		HibernateUtil5.shutdown();
 		System.out.println("\n\n\nthe END!!!");
 	}
+
 
 }

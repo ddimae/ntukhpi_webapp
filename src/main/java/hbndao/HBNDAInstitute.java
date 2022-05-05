@@ -2,6 +2,7 @@ package hbndao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -27,6 +28,23 @@ public class HBNDAInstitute {
 			e.printStackTrace();
 		}
 		return instituties;
+	}
+	
+	public static List<String> getNamesInstituteList() {
+
+		List<Institute> instituties = new ArrayList<>();
+		List<String> names = new ArrayList<>();
+		try (Session session = HibernateUtil5.getSessionFactory().openSession()) {
+
+			instituties = session.createQuery("from Institute", model.Institute.class).list();
+			names = instituties.stream()
+					.map((inst)->inst.getShortNameInstitute()).sorted()
+					.collect(Collectors.toList());
+		} catch (Exception e) {
+			System.err.println("=== Institute#getShortNamesInstituteList - get all records ===");
+			e.printStackTrace();
+		}
+		return names;
 	}
 
 	// Метод добавления Insert
@@ -54,7 +72,7 @@ public class HBNDAInstitute {
 		return res;
 	}
 
-	public static long findBySName(String shortNameInstitute) {
+	public static long findIdInstBySName(String shortNameInstitute) {
 		List<Institute> instituties = new ArrayList<>();
 		long id = -1;
 		try (Session session = HibernateUtil5.getSessionFactory().openSession()) {
@@ -66,11 +84,30 @@ public class HBNDAInstitute {
 				id = instituties.get(0).getIdInst();
 			}
 		} catch (Exception e) {
-			System.err.println("=== Institute#findBySName - find id by shortNameInstitute  ===");
+			System.err.println("=== Institute#findIdInstBySName - find id by shortNameInstitute  ===");
 			e.printStackTrace();
 		}
 
 		return id;
+	}
+	
+	public static Institute findInstBySName(String shortNameInstitute) {
+		List<Institute> instituties = new ArrayList<>();
+		Institute institute = null;
+		try (Session session = HibernateUtil5.getSessionFactory().openSession()) {
+			String testHQL = "from Institute where shortNameInstitute = '" + shortNameInstitute + "'";
+			// System.out.println("SQL "+testHQL);
+			instituties = session.createQuery(testHQL, model.Institute.class).list();
+			// System.out.println(instituties);
+			if (!instituties.isEmpty()) {
+				institute = instituties.get(0);
+			}
+		} catch (Exception e) {
+			System.err.println("=== Institute#findInstBySName - find id by shortNameInstitute  ===");
+			e.printStackTrace();
+		}
+
+		return institute;
 	}
 
 	public static Institute getByID(long id) {
@@ -83,8 +120,7 @@ public class HBNDAInstitute {
 
 			// get Institute entity using get() method
 			institute = session.get(Institute.class, (int)id);
-			//System.out.println(institute.getNameInstitute());
-			//System.out.println(institute.getShortNameInstitute());
+
 			// commit transaction
 			transaction.commit();
 		} catch (Exception e) {
@@ -96,33 +132,6 @@ public class HBNDAInstitute {
 		}
 		return institute;
 	}
-
-	/*
-	public static void getByID1(int id) {
-		Transaction transaction = null;
-		try (Session session = HibernateUtil5.getSessionFactory().openSession()) {
-			// start a transaction
-			transaction = session.beginTransaction();
-
-			// get Institute entity using get() method
-			Institute inst = session.get(Institute.class, id);
-			if (inst != null) {
-				System.out.println(inst.getNameInstitute());
-				System.out.println(inst.getShortNameInstitute());
-			} else {
-				System.out.println("Объект с таким id не найден");
-			}
-
-			// commit transaction
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		}
-	}
-    */
 
 	// Метод изменения формирует Update
 	public static boolean update(long id, Institute newInst) {

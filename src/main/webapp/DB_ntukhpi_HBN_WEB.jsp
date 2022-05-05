@@ -8,7 +8,7 @@
 <title>ntukhpi</title>
 </head>
 <body>
-<h1>NTU "KhPI" Structure</h1>
+<h1>NTU "KhPI" Structure MAY 2022</h1>
 <h1>Hibernate in action!</h1>
 <br>
 <h3>Сьогодні <%=java.time.LocalDate.now() %></h3>
